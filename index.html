@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Sueldo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header class="main-header" style="display: none;">
+        <nav class="main-nav">
+            <button class="nav-button active" data-section="sueldoAppSection"><i class="fas fa-chart-line"></i> Control de Sueldo</button>
+            <button class="nav-button" data-section="configSection"><i class="fas fa-cog"></i> Configuración</button>
+            <button class="nav-button" data-section="profileSection"><i class="fas fa-user"></i> Perfil</button>
+            <button id="logoutButton" class="nav-button logout-button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </nav>
+    </header>
+
+    <section id="welcomeSection" class="app-section active welcome-section">
+        <div class="container">
+            <h1 class="app-title"><i class="fas fa-coins"></i> Bienvenido a tu Control de Sueldo</h1>
+            <p>Organiza tus finanzas y lleva un registro de tus ganancias.</p>
+            <div class="welcome-buttons">
+                <button id="welcomeLoginButton" class="button primary-button"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+                <button id="welcomeRegisterButton" class="button secondary-button"><i class="fas fa-user-plus"></i> Registrarse</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="registerSection" class="app-section auth-section">
+        <div class="container">
+            <h2 class="app-title"><i class="fas fa-user-plus"></i> Registrarse</h2>
+            <form id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <label for="registerUsername"><i class="fas fa-user"></i> Usuario:</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="registerPassword"><i class="fas fa-lock"></i> Contraseña:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword"><i class="fas fa-lock"></i> Confirmar Contraseña:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="button primary-button"><i class="fas fa-check-circle"></i> Registrar</button>
+                <p>¿Ya tienes una cuenta? <a href="#" id="goToLogin"><i class="fas fa-sign-in-alt"></i> Inicia sesión aquí</a>.</p>
+            </form>
+        </div>
+    </section>
+
+    <section id="loginSection" class="app-section auth-section">
+        <div class="container">
+            <h2 class="app-title"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h2>
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label for="loginUsername"><i class="fas fa-user"></i> Usuario:</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword"><i class="fas fa-lock"></i> Contraseña:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="button primary-button"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+                <p>¿No tienes una cuenta? <a href="#" id="goToRegister"><i class="fas fa-user-plus"></i> Regístrate aquí</a>.</p>
+            </form>
+        </div>
+    </section>
+
+    <section id="sueldoAppSection" class="app-section">
+        <div class="container">
+            <h2 class="app-title"><i class="fas fa-chart-line"></i> Control de Sueldo Mensual</h2>
+
+            <div class="summary-cards-container">
+                <div class="summary-card">
+                    <h3><i class="fas fa-coins"></i> Jornal Diario</h3>
+                    <p id="jornalDiarioDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-hourglass-half"></i> Ganan. por Hora</h3>
+                    <p id="gananciaPorHoraDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Pago Feriado Fijo</h3>
+                    <p id="pagoFeriadoFijoDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-clock"></i> Pago Hora Feriado</h3>
+                    <p id="pagoHoraFeriadoDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-bullseye"></i> Meta Salarial Mensual</h3>
+                    <p id="monthlyGoal">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-piggy-bank"></i> Total Acumulado del Período</h3>
+                    <p id="totalAcumuladoMesDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card">
+                    <h3><i class="fas fa-users"></i> Bonificación Familiar</h3>
+                    <p id="bonificacionFamiliarDisplay">₲ 0,00</p>
+                </div>
+                <div class="summary-card total-general-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Total General (Acumulado + Bonificación)</h3>
+                    <p id="totalGeneralDisplay">₲ 0,00</p>
+                </div>
+                <div id="ipsResultCard" class="summary-card ips-result-card" style="display: none;">
+                    <h3><i class="fas fa-percent"></i> Sueldo Neto Estimado (después de IPS 9%)</h3>
+                    <p id="sueldoNetoIPSDisplay">₲ 0,00</p>
+                </div>
+            </div>
+
+            <div class="calendar-navigation">
+                <button id="prevMonth" class="button secondary-button"><i class="fas fa-chevron-left"></i> Período Anterior</button>
+                <h3 id="currentMonthYear"></h3>
+                <button id="nextMonth" class="button secondary-button">Período Siguiente <i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div id="calendarDays" class="calendar-grid">
+                </div>
+
+            <div class="action-buttons">
+                <button id="clearMonthData" class="button danger-button"><i class="fas fa-trash-alt"></i> Limpiar Datos del Período Actual</button>
+                <button id="calculateIPSButton" class="button primary-button"><i class="fas fa-calculator"></i> Calcular Sueldo Neto (IPS)</button>
+            </div>
+
+            <div class="jornal-history-section">
+                <h3><i class="fas fa-history"></i> Historial de Jornales Marcados</h3>
+                <ul id="jornalHistory">
+                    </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="configSection" class="app-section">
+        <div class="container">
+            <h2 class="app-title"><i class="fas fa-cog"></i> Configuración de la Aplicación</h2>
+            <div class="input-group">
+                <label for="configJornalDiario"><i class="fas fa-coins"></i> Jornal Diario por Defecto (₲):</label>
+                <input type="number" id="configJornalDiario" value="93234" min="1000">
+            </div>
+            <div class="input-group">
+                <label for="configGananciaPorHora"><i class="fas fa-hourglass-half"></i> Ganancia por Hora (₲):</label>
+                <input type="number" id="configGananciaPorHora" value="11650" min="100">
+            </div>
+            <div class="input-group">
+                <label for="configPagoFeriadoFijo"><i class="fas fa-calendar-alt"></i> Pago por Feriado (Fijo) (₲):</label>
+                <input type="number" id="configPagoFeriadoFijo" value="186000" min="1000">
+            </div>
+            <div class="input-group">
+                <label for="configPagoHoraFeriado"><i class="fas fa-clock"></i> Pago por Hora en Feriado (₲):</label>
+                <input type="number" id="configPagoHoraFeriado" value="23000" min="100">
+            </div>
+            <div class="input-group">
+                <label for="configMonthlyGoal"><i class="fas fa-bullseye"></i> Meta Salarial Mensual (₲):</label>
+                <input type="number" id="configMonthlyGoal" min="1000">
+            </div>
+            <div class="input-group">
+                <label for="configNumChildren"><i class="fas fa-child"></i> Número de Hijos (para bonificación):</label>
+                <input type="number" id="configNumChildren" min="0" value="0">
+            </div>
+            <button id="saveConfigButton" class="button primary-button"><i class="fas fa-save"></i> Guardar Configuración</button>
+            <p class="config-note">Aquí puedes ajustar los valores predeterminados de la aplicación.</p>
+        </div>
+    </section>
+
+    <section id="profileSection" class="app-section">
+        <div class="container">
+            <h2 class="app-title"><i class="fas fa-user"></i> Tu Perfil</h2>
+            <form id="profileForm" class="profile-form">
+                <div class="profile-photo-container">
+                    <img id="profilePhoto" src="https://via.placeholder.com/150/EEEEEE/888888?text=Tu+Foto" alt="Foto de Perfil">
+                    <input type="file" id="profilePhotoInput" accept="image/*">
+                    <label for="profilePhotoInput" class="button secondary-button"><i class="fas fa-upload"></i> Subir Foto</label>
+                </div>
+
+                <div class="input-group">
+                    <label for="profileUsernameDisplay"><i class="fas fa-user"></i> Usuario:</label>
+                    <input type="text" id="profileUsernameDisplay" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="fullName"><i class="fas fa-id-card"></i> Nombre Completo:</label>
+                    <input type="text" id="fullName">
+                </div>
+                <div class="input-group">
+                    <label for="age"><i class="fas fa-birthday-cake"></i> Edad:</label>
+                    <input type="number" id="age" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="city"><i class="fas fa-city"></i> Ciudad:</label>
+                    <input type="text" id="city">
+                </div>
+                <div class="input-group">
+                    <label for="entryYear"><i class="fas fa-calendar-alt"></i> Año de Ingreso a la Empresa:</label>
+                    <input type="number" id="entryYear" min="1900" max="2099">
+                </div>
+                <button type="submit" class="button primary-button"><i class="fas fa-save"></i> Guardar Perfil</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
